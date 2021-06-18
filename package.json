@@ -1,0 +1,18 @@
+{
+  "name": "ardxreact-cli",
+  "version": "1.0.0",
+  "description": "\"Generate a complete react native project in a second.\"",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ibnu Putra Ardiansyah",
+  "license": "ISC",
+  "bin": {
+    "ardx": "./bin/index.js"
+  },
+  "dependencies": {
+    "shelljs": "^0.8.4",
+    "yargs": "^17.0.1"
+  }
+}
