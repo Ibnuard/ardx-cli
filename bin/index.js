@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 const yargs = require("yargs");
-const { createProject, testCD } = require("./utils");
+const { createProject, generateComponent, generateScreen } = require("./utils");
 const utils = require("./utils");
 
 var value = utils.parseSentence(yargs.argv._);
@@ -10,8 +10,10 @@ console.log('cmd : ' + cmd, ' val : ' + value)
 
 if (cmd == 'init') {
     createProject(value)
-} else if (cmd == 'test') {
-    testCD()
+} else if (cmd == 'genco') {
+    generateComponent(value)
+} else if (cmd == 'gensc') {
+    generateScreen(value)
 }
 
 const usage = "\nUsage: ardx <lang_name> sentence to be translated";

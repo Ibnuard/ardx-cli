@@ -2,7 +2,8 @@ module.exports = {
     parseSentence: parseSentence,
     parseCommand: parseCommand,
     createProject: createProject,
-    testCD: testCD
+    generateComponent: generateComponent,
+    generateScreen: generateScreen
 };
 
 const { execSync } = require('child_process');
@@ -72,39 +73,67 @@ function doRename(name) {
     }
 }
 
-function testCD() {
-    const fs = require('fs')
+function generateComponent(name) {
+    const fs = require('fs-extra');
 
-    const folderName = './Test'
-    console.log('Starting directory: ' + process.cwd());
+    console.log('Generating component.... : ' + name)
+    console.log('dir : ' + process.cwd())
+
+    const addOnsPath = './ardx/files/component'
+    const addOnsgenerated = `./ardx/files/${name}`
+    const dest = `./src/components/${name}`
 
     try {
-        if (!fs.existsSync(folderName)) {
-            fs.mkdirSync(folderName)
-            navigateCD(folderName)
+        if (!fs.existsSync(addOnsPath)) {
+            console.log('error addons folder not found')
+        } else {
+            copyFolder()
         }
     } catch (err) {
         console.error(err)
     }
 
-    function navigateCD(name) {
-        try {
-            process.chdir(name);
-            createNewFolder()
-            console.log('New directory: ' + process.cwd());
+    function copyFolder() {
+        console.log('Sync...')
+
+        fs.copy(addOnsPath, dest, function (err) {
+            if (err) {
+                console.log('An error occured while copying the folder.')
+                return console.error(err)
+            }
+            console.log('Copy completed!')
+        });
+    }
+}
+
+function generateScreen(name) {
+    const fs = require('fs-extra');
+
+    console.log('Generating Screen.... : ' + name)
+    console.log('dir : ' + process.cwd())
+
+    const addOnsPath = './ardx/files/screens'
+    const dest = `./src/screens/${name}`
+
+    try {
+        if (!fs.existsSync(addOnsPath)) {
+            console.log('error addons folder not found')
+        } else {
+            copyFolder()
         }
-        catch (err) {
-            console.log('chdir: ' + err);
-        }
+    } catch (err) {
+        console.error(err)
     }
 
-    function createNewFolder() {
-        try {
-            if (!fs.existsSync(folderName)) {
-                fs.mkdirSync(folderName)
+    function copyFolder() {
+        console.log('Sync...')
+
+        fs.copy(addOnsPath, dest, function (err) {
+            if (err) {
+                console.log('An error occured while copying the folder.')
+                return console.error(err)
             }
-        } catch (err) {
-            console.error(err)
-        }
+            console.log('Copy completed!')
+        });
     }
 }
